@@ -1,0 +1,16 @@
+{
+  "name": "@start-x-work/marketing-os-seo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "AI-native SEO toolkit for the LLMO era",
+  "license": "Apache-2.0",
+  "author": "Start-X LLC <https://marketing-os.jp>",
+  "homepage": "https://github.com/start-x-work/marketing-os-seo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/start-x-work/marketing-os-seo.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
