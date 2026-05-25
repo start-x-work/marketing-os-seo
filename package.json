@@ -10,7 +10,20 @@
     "type": "git",
     "url": "https://github.com/start-x-work/marketing-os-seo.git"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "vitest run",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "@types/node": "^25.9.1",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
+  },
+  "packageManager": "pnpm@9.0.0"
 }
