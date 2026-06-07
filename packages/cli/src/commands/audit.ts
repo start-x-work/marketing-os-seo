@@ -1,5 +1,10 @@
-import { auditLLMO, auditSite } from "@start-x-work/marketing-os-seo-core";
+import {
+  auditLLMO,
+  auditSite,
+  validateUrl,
+} from "@start-x-work/marketing-os-seo-core";
 import { defineCommand } from "citty";
+import { runSafely } from "../errors";
 import { render } from "../output/render";
 
 export default defineCommand({
@@ -20,8 +25,10 @@ export default defineCommand({
         },
       },
       async run({ args }) {
-        const result = await auditLLMO(String(args.url));
-        render(result, args.format);
+        await runSafely(async () => {
+          const result = await auditLLMO(validateUrl(String(args.url)));
+          render(result, args.format);
+        });
       },
     }),
     site: defineCommand({
@@ -39,8 +46,10 @@ export default defineCommand({
         },
       },
       async run({ args }) {
-        const result = await auditSite(String(args.url));
-        render(result, args.format);
+        await runSafely(async () => {
+          const result = await auditSite(validateUrl(String(args.url)));
+          render(result, args.format);
+        });
       },
     }),
   },

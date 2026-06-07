@@ -1,8 +1,10 @@
 import {
   createProvider,
   generateBrief,
+  validateNonEmptyString,
 } from "@start-x-work/marketing-os-seo-core";
 import { defineCommand } from "citty";
+import { runSafely } from "../errors";
 import { render } from "../output/render";
 
 export default defineCommand({
@@ -26,11 +28,13 @@ export default defineCommand({
         },
       },
       async run({ args }) {
-        const result = await generateBrief(
-          createProvider(),
-          String(args.topic),
-        );
-        render(result, args.format);
+        await runSafely(async () => {
+          const result = await generateBrief(
+            createProvider(),
+            validateNonEmptyString(String(args.topic), "Topic"),
+          );
+          render(result, args.format);
+        });
       },
     }),
   },

@@ -26,15 +26,16 @@ importers:
 
   packages/cli:
     dependencies:
-      '@start-x-work/marketing-os-seo-core':
-        specifier: workspace:*
-        version: link:../core
       citty:
         specifier: ^0.2.2
         version: 0.2.2
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
+    devDependencies:
+      '@start-x-work/marketing-os-seo-core':
+        specifier: workspace:*
+        version: link:../core
 
   packages/core:
     dependencies:
