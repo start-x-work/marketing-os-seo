@@ -1,14 +1,15 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
   "files": {
-    "includes": ["**", "!**/dist", "!node_modules"]
+    "includes": ["**", "!**/dist", "!**/.wrangler", "!node_modules"]
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noUnknownAtRules": "off"
       }
     }
   },

@@ -5,11 +5,14 @@ import type { AIProvider, CompleteOptions } from "./provider";
 export class GeminiProvider implements AIProvider {
   private client: GoogleGenAI;
 
-  constructor(apiKey = process.env.GEMINI_API_KEY) {
-    if (!apiKey) {
+  constructor(apiKey?: string) {
+    const envApiKey =
+      typeof process === "undefined" ? undefined : process.env.GEMINI_API_KEY;
+    const resolvedApiKey = apiKey ?? envApiKey;
+    if (!resolvedApiKey) {
       throw new AIError("GEMINI_API_KEY is required");
     }
-    this.client = new GoogleGenAI({ apiKey });
+    this.client = new GoogleGenAI({ apiKey: resolvedApiKey });
   }
 
   async complete(prompt: string, opts: CompleteOptions = {}): Promise<string> {

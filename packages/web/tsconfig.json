@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "react-jsx",
+    "paths": {
+      "@start-x-work/marketing-os-seo-core": ["../core/src/index.ts"]
+    },
+    "types": ["vite/client", "@cloudflare/workers-types"],
+    "declaration": false,
+    "noEmit": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "functions/**/*.ts",
+    "vite.config.ts",
+    "tailwind.config.ts"
+  ]
+}
