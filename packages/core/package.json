@@ -1,6 +1,6 @@
 {
   "name": "@start-x-work/marketing-os-seo-core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "type": "module",
   "license": "Apache-2.0",
@@ -20,8 +20,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@google/genai": "^2.6.0",
-    "cheerio": "^1.2.0",
+    "@start-x-work/mos-kit": "file:../../../mos-kit",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "cheerio": "^1.2.0"
   }
 }

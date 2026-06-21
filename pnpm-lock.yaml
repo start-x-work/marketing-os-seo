@@ -39,15 +39,16 @@ importers:
 
   packages/core:
     dependencies:
-      '@google/genai':
-        specifier: ^2.6.0
-        version: 2.6.0
-      cheerio:
-        specifier: ^1.2.0
-        version: 1.2.0
+      '@start-x-work/mos-kit':
+        specifier: file:../../../mos-kit
+        version: file:../mos-kit
       zod:
         specifier: ^4.4.3
         version: 4.4.3
+    devDependencies:
+      cheerio:
+        specifier: ^1.2.0
+        version: 1.2.0
 
   packages/web:
     dependencies:
@@ -980,6 +981,9 @@ packages:
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
+  '@start-x-work/mos-kit@file:../mos-kit':
+    resolution: {directory: ../mos-kit, type: directory}
 
   '@tanstack/query-core@5.101.0':
     resolution: {integrity: sha512-cQetA74EB+seWySv1TTKr828TnP0u39m6LykwDXIo84SNortpDkp30TMEjkqtYCNP9c40uT/iwl6MLiufEt0Ow==}
@@ -2576,6 +2580,16 @@ snapshots:
   '@speed-highlight/core@1.2.15': {}
 
   '@standard-schema/spec@1.1.0': {}
+
+  '@start-x-work/mos-kit@file:../mos-kit':
+    dependencies:
+      '@google/genai': 2.6.0
+      cheerio: 1.2.0
+    transitivePeerDependencies:
+      - '@modelcontextprotocol/sdk'
+      - bufferutil
+      - supports-color
+      - utf-8-validate
 
   '@tanstack/query-core@5.101.0': {}
 

@@ -1,5 +1,5 @@
+import type { AIProvider } from "@start-x-work/mos-kit";
 import { describe, expect, it, vi } from "vitest";
-import type { AIProvider } from "../ai";
 import { generateBrief } from "./brief";
 
 const mockAI: AIProvider = {

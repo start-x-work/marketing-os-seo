@@ -1,4 +1,4 @@
-import type { AIProvider } from "../ai";
+import type { AIProvider } from "@start-x-work/mos-kit";
 import { parseJsonFromText } from "../json";
 
 export type Intent =

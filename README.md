@@ -2,7 +2,7 @@
 
 AI-native SEO toolkit for the LLMO era.
 
-v1.0 provides a semver-stable core API, CLI, and Web UI. The toolkit focuses on diagnosis, evaluation, and editable planning artifacts. It does not automate publishing or generate final content on behalf of the user.
+v1.1 provides a semver-stable core API on top of `@start-x-work/mos-kit`, plus CLI and Web UI. The toolkit focuses on diagnosis, evaluation, and editable planning artifacts. It does not automate publishing or generate final content on behalf of the user.
 
 思想・境界線・v0.1 の約束は **[manifesto / SEO 編](https://github.com/start-x-work/manifesto/blob/main/seo/README.md)** およびハブ全体 **[manifesto](https://github.com/start-x-work/manifesto)** を参照。
 
@@ -36,9 +36,10 @@ https://marketing-os-seo.pages.dev
 
 ## Packages
 
-- `packages/core` — semver-stable public API (v1.0+)
+- `packages/core` — semver-stable SEO API (v1.1+), built on `@start-x-work/mos-kit`
 - `packages/cli` — `mos-seo` command line interface
 - `packages/web` — Cloudflare Pages Web UI
+- shared foundation — [`@start-x-work/mos-kit`](https://github.com/start-x-work/mos-kit)
 
 ## Development
 

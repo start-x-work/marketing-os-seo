@@ -1,4 +1,4 @@
-import { fetchPage } from "../http/fetch-page";
+import { fetchPage } from "@start-x-work/mos-kit";
 import { checkAIBots } from "./checks/ai-bots";
 import { checkCitability } from "./checks/citability";
 import { checkHeadings } from "./checks/headings";

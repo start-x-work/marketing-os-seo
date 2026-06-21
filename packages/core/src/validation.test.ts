@@ -1,5 +1,5 @@
+import { CliError } from "@start-x-work/marketing-os-seo-core";
 import { describe, expect, it } from "vitest";
-import { CliError } from "./errors";
 import { validateNonEmptyString, validateUrl } from "./validation";
 
 describe("validation", () => {

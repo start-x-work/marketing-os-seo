@@ -1,4 +1,4 @@
-import type { AIProvider } from "../ai";
+import type { AIProvider } from "@start-x-work/mos-kit";
 import { clusterKeywords } from "./cluster";
 import type { GSCQueryRow } from "./gsc";
 import { classifyIntent, type Intent } from "./intent";

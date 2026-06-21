@@ -1,6 +1,6 @@
+import type { FetchedPage } from "@start-x-work/mos-kit";
 import * as cheerio from "cheerio";
 import { describe, expect, it } from "vitest";
-import type { FetchedPage } from "../http/fetch-page";
 import { checkMeta } from "./meta";
 
 function page(html: string): FetchedPage {

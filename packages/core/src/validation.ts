@@ -1,5 +1,5 @@
+import { CliError } from "@start-x-work/mos-kit";
 import { z } from "zod";
-import { CliError } from "./errors";
 
 const UrlSchema = z
   .string()

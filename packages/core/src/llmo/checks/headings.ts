@@ -1,4 +1,4 @@
-import type { FetchedPage } from "../../http/fetch-page";
+import type { FetchedPage } from "@start-x-work/mos-kit";
 import type { LLMOCheck } from "../audit";
 
 export function checkHeadings(page: FetchedPage): LLMOCheck {

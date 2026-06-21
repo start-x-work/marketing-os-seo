@@ -1,4 +1,4 @@
-import type { AIProvider } from "../ai";
+import type { AIProvider } from "@start-x-work/mos-kit";
 
 export async function clusterKeywords(
   ai: AIProvider,

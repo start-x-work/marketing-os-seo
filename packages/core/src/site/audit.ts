@@ -1,5 +1,5 @@
+import { fetchPage } from "@start-x-work/mos-kit";
 import { z } from "zod";
-import { fetchPage } from "../http/fetch-page";
 import { checkCrawlability } from "./crawlability";
 import { checkMeta } from "./meta";
 import { checkStructuredData } from "./structured-data";
