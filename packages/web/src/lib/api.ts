@@ -39,6 +39,12 @@ export interface KeywordMapResult {
   keywords: string[];
   intents: Record<string, string>;
   clusters: Record<string, string[]>;
+  volumes?: Array<{
+    keyword: string;
+    estimatedVolume: number | null;
+    source: "gsc" | "estimated";
+    confidence: "high" | "medium" | "low";
+  }>;
   gscRows?: Array<{
     query: string;
     clicks: number;
@@ -67,6 +73,8 @@ export async function keywordMap(input: {
   seed: string;
   related?: string[];
   siteUrl?: string;
+  volume?: boolean;
+  lang?: string;
 }): Promise<KeywordMapResult> {
   return request("/api/keyword/map", {
     method: "POST",

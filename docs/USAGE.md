@@ -1,6 +1,6 @@
 # Marketing-OS SEO CLI Usage
 
-`@start-x-work/mos-seo` exposes four v0.1 workflows from the command line. Every command supports `--format json`; `table` is the default and `markdown` is also available.
+`@start-x-work/mos-seo` v1.0 exposes four workflows from the command line. Every command supports `--format json`; `table` is the default and `markdown` is also available. Use `--quiet` to hide the optional Marketing-OS footer line.
 
 ## Install
 
@@ -17,35 +17,22 @@ pnpm build
 node packages/cli/dist/index.cjs audit site https://example.com --format json
 ```
 
+## Global options
+
+| Option | Default | Description |
+|---|---|---|
+| `--format` | `table` | `json`, `table`, or `markdown` |
+| `--quiet` | `false` | Suppress the commercial footer line |
+| `--model` | `gemini` | `gemini`, `openai`, or `anthropic` (AI commands) |
+| `--lang` | `ja` | Output language for AI-backed planning commands |
+
 ## `audit llmo`
 
 Audit how well a page is positioned for AI search surfaces.
 
 ```bash
 mos-seo audit llmo https://example.com
-mos-seo audit llmo https://example.com --format json
-mos-seo audit llmo https://example.com --format markdown
-```
-
-Checks:
-
-- AI-readable structured data
-- Question-oriented heading shape
-- Common AI bot crawl policy in `robots.txt`
-- `/llms.txt` availability
-- Citation-ready factual density
-
-JSON output shape:
-
-```json
-{
-  "url": "https://example.com",
-  "totalScore": 72,
-  "checks": [
-    { "id": "llmo.headings", "label": "Question-oriented heading structure", "score": 90, "weight": 2, "detail": "..." }
-  ],
-  "recommendations": []
-}
+mos-seo audit llmo https://example.com --format json --quiet
 ```
 
 ## `audit site`
@@ -57,34 +44,13 @@ mos-seo audit site https://example.com
 mos-seo audit site https://example.com --format json
 ```
 
-Checks:
-
-- Title and meta description
-- Canonical URL
-- H1 count
-- JSON-LD presence and validity
-- `robots.txt` and `sitemap.xml`
-
-JSON output shape:
-
-```json
-{
-  "url": "https://example.com",
-  "checks": [
-    { "id": "meta.title", "label": "Title tag", "passed": true, "detail": "Title length: 14" }
-  ],
-  "passedCount": 1,
-  "totalCount": 8
-}
-```
-
 ## `content brief`
 
 Generate an editable content brief. This command does not generate final article body text.
 
 ```bash
 GEMINI_API_KEY=... mos-seo content brief "AI時代のSEO"
-GEMINI_API_KEY=... mos-seo content brief "AI時代のSEO" --format json
+GEMINI_API_KEY=... mos-seo content brief "AI SEO strategy" --lang en --model openai --format json
 ```
 
 Output includes:
@@ -99,8 +65,11 @@ Classify keyword intent and cluster related keywords through the AI provider abs
 
 ```bash
 GEMINI_API_KEY=... mos-seo keyword map "マーケティング" --format json
-GEMINI_API_KEY=... mos-seo keyword map "LLMO" --related "AI SEO,AEO,Google AI Overview" --format markdown
+GEMINI_API_KEY=... mos-seo keyword map "ai marketing" --volume --format json
+GEMINI_API_KEY=... mos-seo keyword map "LLMO" --related "AI SEO,AEO" --volume --site-url https://example.com/
 ```
+
+With `--volume`, the CLI attaches volume estimates. GSC credentials plus `--site-url` prefer real Search Console impressions; otherwise the core uses cluster-relative estimation without a keyword database.
 
 Output includes:
 
@@ -108,13 +77,16 @@ Output includes:
 - Normalized keyword list
 - Intent map
 - Embedding-based clusters
+- Optional `volumes` array when `--volume` is set
 
 ## Environment
 
 Copy `.env.example` into your local environment manager. Do not commit `.env`.
 
-- `GEMINI_API_KEY`: required for `content brief` and `keyword map`.
-- `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, `GSC_REFRESH_TOKEN`: reserved for Search Console integrations.
+- `GEMINI_API_KEY`: default provider for `content brief` and `keyword map`
+- `OPENAI_API_KEY`: optional, for `--model openai`
+- `ANTHROPIC_API_KEY`: optional, for `--model anthropic`
+- `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, `GSC_REFRESH_TOKEN`: optional, for CLI volume estimates with `--site-url`
 
 ## Common Errors
 
@@ -132,12 +104,13 @@ The target page could not be fetched, returned a non-success status, or timed ou
 
 ### `Error [E_AI]: AI provider error: GEMINI_API_KEY is required`
 
-Set `GEMINI_API_KEY` for AI-backed commands.
+Set the API key for the selected model.
 
 ```bash
 GEMINI_API_KEY=... mos-seo content brief "LLMO strategy"
+OPENAI_API_KEY=... mos-seo content brief "LLMO strategy" --model openai
 ```
 
 ### `Error [E_PARSE]`
 
-The AI provider returned a response that could not be parsed as JSON. Retry, or lower temperature in future provider options.
+The AI provider returned a response that could not be parsed as JSON. Retry, or switch models with `--model`.

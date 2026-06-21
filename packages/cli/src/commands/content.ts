@@ -6,6 +6,15 @@ import {
 import { defineCommand } from "citty";
 import { runSafely } from "../errors";
 import { render } from "../output/render";
+import {
+  formatArg,
+  langArg,
+  modelArg,
+  parseLang,
+  parseModel,
+  parseQuiet,
+  quietArg,
+} from "../shared";
 
 export default defineCommand({
   meta: { name: "content", description: "Content planning tools" },
@@ -21,19 +30,19 @@ export default defineCommand({
           required: true,
           description: "Topic to brief",
         },
-        format: {
-          type: "string",
-          default: "table",
-          description: "json, table, or markdown",
-        },
+        format: formatArg,
+        lang: langArg,
+        model: modelArg,
+        quiet: quietArg,
       },
       async run({ args }) {
         await runSafely(async () => {
           const result = await generateBrief(
-            createProvider(),
+            createProvider(parseModel(args.model)),
             validateNonEmptyString(String(args.topic), "Topic"),
+            { lang: parseLang(args.lang) },
           );
-          render(result, args.format);
+          render(result, args.format, { quiet: parseQuiet(args.quiet) });
         });
       },
     }),

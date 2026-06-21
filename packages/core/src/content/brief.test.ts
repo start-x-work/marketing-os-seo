@@ -21,4 +21,12 @@ describe("generateBrief", () => {
     expect(result.outline).toHaveLength(2);
     expect(result.prompts).toContain("State the audience");
   });
+
+  it("uses language in the prompt", async () => {
+    await generateBrief(mockAI, "AI SEO", { lang: "en" });
+    expect(mockAI.complete).toHaveBeenCalledWith(
+      expect.stringContaining("English"),
+      { json: true },
+    );
+  });
 });

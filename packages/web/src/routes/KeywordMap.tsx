@@ -36,6 +36,7 @@ export function KeywordMap() {
               seed,
               related,
               siteUrl: siteUrl || undefined,
+              volume: true,
             });
           }}
         >
@@ -112,6 +113,33 @@ export function KeywordMap() {
               ))}
             </div>
           </Card>
+          {map.data.volumes && map.data.volumes.length > 0 && (
+            <Card className="lg:col-span-2">
+              <h2 className="text-xl font-light text-slate">Volume 推定</h2>
+              <div className="mt-5 overflow-x-auto">
+                <table className="w-full min-w-[640px] text-left text-sm">
+                  <thead className="text-slate-muted">
+                    <tr>
+                      <th className="py-2">Keyword</th>
+                      <th className="py-2">Volume</th>
+                      <th className="py-2">Source</th>
+                      <th className="py-2">Confidence</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {map.data.volumes.map((row) => (
+                      <tr key={row.keyword}>
+                        <td className="py-3">{row.keyword}</td>
+                        <td className="py-3">{row.estimatedVolume ?? "—"}</td>
+                        <td className="py-3">{row.source}</td>
+                        <td className="py-3">{row.confidence}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          )}
           {map.data.gscRows && map.data.gscRows.length > 0 && (
             <Card className="lg:col-span-2">
               <h2 className="text-xl font-light text-slate">GSC Queries</h2>

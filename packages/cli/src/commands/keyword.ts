@@ -1,11 +1,24 @@
 import {
   createProvider,
+  estimateVolume,
+  fetchGSCQueries,
   mapKeywords,
+  toKeywordNodes,
   validateNonEmptyString,
+  validateUrl,
 } from "@start-x-work/marketing-os-seo-core";
 import { defineCommand } from "citty";
 import { runSafely } from "../errors";
 import { render } from "../output/render";
+import {
+  formatArg,
+  langArg,
+  modelArg,
+  parseLang,
+  parseModel,
+  parseQuiet,
+  quietArg,
+} from "../shared";
 
 export default defineCommand({
   meta: { name: "keyword", description: "Keyword research tools" },
@@ -23,11 +36,20 @@ export default defineCommand({
           default: "",
           description: "Comma-separated related keywords",
         },
-        format: {
-          type: "string",
-          default: "table",
-          description: "json, table, or markdown",
+        volume: {
+          type: "boolean",
+          default: false,
+          description: "Attach volume estimates (GSC data preferred)",
         },
+        "site-url": {
+          type: "string",
+          default: "",
+          description: "Search Console property URL for volume data",
+        },
+        format: formatArg,
+        lang: langArg,
+        model: modelArg,
+        quiet: quietArg,
       },
       async run({ args }) {
         await runSafely(async () => {
@@ -39,10 +61,36 @@ export default defineCommand({
             String(args.seed),
             "Seed keyword",
           );
-          const result = await mapKeywords(createProvider(), seed, related);
-          render(result, args.format);
+          const lang = parseLang(args.lang);
+          const result = await mapKeywords(
+            createProvider(parseModel(args.model)),
+            seed,
+            related,
+            { lang },
+          );
+
+          if (args.volume) {
+            const siteUrl = String(args["site-url"] || "").trim();
+            const gscRows = siteUrl
+              ? await fetchGSCQueries({
+                  siteUrl: validateUrl(siteUrl),
+                  startDate: daysAgo(30),
+                  endDate: daysAgo(1),
+                  limit: 250,
+                }).catch(() => [])
+              : [];
+            result.volumes = estimateVolume(toKeywordNodes(result, gscRows));
+          }
+
+          render(result, args.format, { quiet: parseQuiet(args.quiet) });
         });
       },
     }),
   },
 });
+
+function daysAgo(days: number): string {
+  const date = new Date();
+  date.setUTCDate(date.getUTCDate() - days);
+  return date.toISOString().slice(0, 10);
+}

@@ -10,8 +10,11 @@ export type Intent =
 export async function classifyIntent(
   ai: AIProvider,
   keywords: string[],
+  lang = "ja",
 ): Promise<Record<string, Intent>> {
-  const prompt = `次のキーワードを informational/commercial/transactional/navigational に分類し、JSONオブジェクトだけで返す: ${JSON.stringify(keywords)}`;
+  const language =
+    lang === "ja" ? "Japanese" : lang === "en" ? "English" : lang;
+  const prompt = `Classify the following keywords into informational/commercial/transactional/navigational. Respond in ${language} labels only inside JSON values if needed, but keep the intent values exactly as those four English enum strings. Return a JSON object only: ${JSON.stringify(keywords)}`;
   const json = await ai.complete(prompt, { json: true });
   return parseJsonFromText<Record<string, Intent>>(json);
 }

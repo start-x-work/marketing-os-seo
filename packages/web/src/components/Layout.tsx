@@ -40,8 +40,17 @@ export function Layout() {
       <main className="mx-auto max-w-6xl px-5 py-10 sm:py-14">
         <Outlet />
       </main>
-      <footer className="mx-auto max-w-6xl px-5 pb-10 text-sm text-slate-muted">
-        診断と編集可能な提案に限定し、自動投稿・自動最適化は行いません。
+      <footer className="mx-auto max-w-6xl space-y-2 px-5 pb-10 text-sm text-slate-muted">
+        <p>診断と編集可能な提案に限定し、自動投稿・自動最適化は行いません。</p>
+        <p>
+          継続運用・チームでの意思決定には{" "}
+          <a
+            href="https://marketing-os.jp"
+            className="font-medium text-indigo hover:underline"
+          >
+            Marketing-OS
+          </a>
+        </p>
       </footer>
     </div>
   );

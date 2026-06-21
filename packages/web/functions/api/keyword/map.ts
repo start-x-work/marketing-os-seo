@@ -1,6 +1,8 @@
 import {
   createProvider,
+  estimateVolume,
   mapKeywords,
+  toKeywordNodes,
   validateNonEmptyString,
   validateUrl,
 } from "@start-x-work/marketing-os-seo-core";
@@ -11,6 +13,9 @@ interface KeywordRequest {
   seed?: string;
   related?: string[];
   siteUrl?: string;
+  volume?: boolean;
+  lang?: string;
+  model?: "gemini" | "openai" | "anthropic";
 }
 
 interface GscRow {
@@ -25,14 +30,26 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const body = await readJson<KeywordRequest>(request);
     const seed = validateNonEmptyString(body.seed ?? "", "seed");
     const related = Array.isArray(body.related) ? body.related : [];
+    const model = body.model ?? "gemini";
+    const apiKey =
+      model === "openai"
+        ? env.OPENAI_API_KEY
+        : model === "anthropic"
+          ? env.ANTHROPIC_API_KEY
+          : env.GEMINI_API_KEY;
     const result = await mapKeywords(
-      createProvider(env.GEMINI_API_KEY),
+      createProvider(model, apiKey),
       seed,
       related,
+      { lang: body.lang ?? "ja" },
     );
     const gscRows = body.siteUrl
       ? await fetchGscRowsIfConnected(request, env, validateUrl(body.siteUrl))
       : undefined;
+
+    if (body.volume) {
+      result.volumes = estimateVolume(toKeywordNodes(result, gscRows ?? []));
+    }
 
     return Response.json({ ...result, gscRows });
   } catch (error) {

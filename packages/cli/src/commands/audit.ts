@@ -6,6 +6,7 @@ import {
 import { defineCommand } from "citty";
 import { runSafely } from "../errors";
 import { render } from "../output/render";
+import { formatArg, parseQuiet, quietArg } from "../shared";
 
 export default defineCommand({
   meta: { name: "audit", description: "Run SEO audits" },
@@ -18,16 +19,13 @@ export default defineCommand({
           required: true,
           description: "URL to audit",
         },
-        format: {
-          type: "string",
-          default: "table",
-          description: "json, table, or markdown",
-        },
+        format: formatArg,
+        quiet: quietArg,
       },
       async run({ args }) {
         await runSafely(async () => {
           const result = await auditLLMO(validateUrl(String(args.url)));
-          render(result, args.format);
+          render(result, args.format, { quiet: parseQuiet(args.quiet) });
         });
       },
     }),
@@ -39,16 +37,13 @@ export default defineCommand({
           required: true,
           description: "URL to audit",
         },
-        format: {
-          type: "string",
-          default: "table",
-          description: "json, table, or markdown",
-        },
+        format: formatArg,
+        quiet: quietArg,
       },
       async run({ args }) {
         await runSafely(async () => {
           const result = await auditSite(validateUrl(String(args.url)));
-          render(result, args.format);
+          render(result, args.format, { quiet: parseQuiet(args.quiet) });
         });
       },
     }),

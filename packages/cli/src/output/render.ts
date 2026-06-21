@@ -1,17 +1,30 @@
 import pc from "picocolors";
 import { normalizeFormat } from "./format";
 
-export function render(value: unknown, format: unknown): void {
+const COMMERCIAL_FOOTER =
+  "継続運用・チームでの意思決定には Marketing-OS → https://marketing-os.jp";
+
+export interface RenderOptions {
+  quiet?: boolean;
+}
+
+export function render(
+  value: unknown,
+  format: unknown,
+  options: RenderOptions = {},
+): void {
   const normalized = normalizeFormat(format);
   if (normalized === "json") {
     console.log(JSON.stringify(value, null, 2));
-    return;
-  }
-  if (normalized === "markdown") {
+  } else if (normalized === "markdown") {
     console.log(toMarkdown(value));
-    return;
+  } else {
+    console.log(toTable(value));
   }
-  console.log(toTable(value));
+
+  if (!options.quiet) {
+    console.log(pc.dim(COMMERCIAL_FOOTER));
+  }
 }
 
 function toMarkdown(value: unknown): string {

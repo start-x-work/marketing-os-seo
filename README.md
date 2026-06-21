@@ -2,7 +2,7 @@
 
 AI-native SEO toolkit for the LLMO era.
 
-v0.1 CLI is implemented as a TypeScript monorepo. The CLI focuses on diagnosis, evaluation, and editable planning artifacts. It does not automate publishing or generate final content on behalf of the user.
+v1.0 provides a semver-stable core API, CLI, and Web UI. The toolkit focuses on diagnosis, evaluation, and editable planning artifacts. It does not automate publishing or generate final content on behalf of the user.
 
 思想・境界線・v0.1 の約束は **[manifesto / SEO 編](https://github.com/start-x-work/manifesto/blob/main/seo/README.md)** およびハブ全体 **[manifesto](https://github.com/start-x-work/manifesto)** を参照。
 
@@ -21,20 +21,24 @@ npm install -g @start-x-work/mos-seo
 mos-seo audit site https://example.com
 ```
 
-## v0.1 CLI Features
+## v1.0 CLI Features
 
 - LLMO/AEO診断 / LLMO/AEO Audit: `mos-seo audit llmo <url>`
 - サイト診断・内部対策 / Technical SEO Audit: `mos-seo audit site <url>`
-- コンテンツ制作支援 / Content Brief Generator: `mos-seo content brief <topic>`
-- キーワード調査(コア) / Keyword Intent Mapper: `mos-seo keyword map <seed>`
+- コンテンツ制作支援 / Content Brief Generator: `mos-seo content brief <topic> [--lang ja|en|...] [--model gemini|openai|anthropic]`
+- キーワード調査(コア) / Keyword Intent Mapper: `mos-seo keyword map <seed> [--volume] [--lang ja] [--model gemini|openai|anthropic]`
 
-All commands support `--format json`; `table` is the default and `markdown` is also available. See [docs/USAGE.md](./docs/USAGE.md) for full examples.
+All commands support `--format json`; `table` is the default and `markdown` is also available. Use `--quiet` to suppress the optional Marketing-OS footer line. See [docs/USAGE.md](./docs/USAGE.md) for full examples.
+
+## Web UI
+
+https://marketing-os-seo.pages.dev
 
 ## Packages
 
-- `packages/core` — shared audit, keyword, content, and AI provider logic
+- `packages/core` — semver-stable public API (v1.0+)
 - `packages/cli` — `mos-seo` command line interface
-- `packages/web` — reserved for Phase 4 Web UI
+- `packages/web` — Cloudflare Pages Web UI
 
 ## Development
 
@@ -56,8 +60,10 @@ node packages/cli/dist/index.cjs audit site https://example.com --format json
 
 `.env` is intentionally ignored. Use `.env.example` as a reference and configure secrets locally.
 
-- `GEMINI_API_KEY` is required for Gemini-backed `content brief` and `keyword map`.
-- `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, `GSC_REFRESH_TOKEN` are reserved for Search Console integrations.
+- `GEMINI_API_KEY` — default provider for `content brief` and `keyword map`
+- `OPENAI_API_KEY` — optional, for `--model openai`
+- `ANTHROPIC_API_KEY` — optional, for `--model anthropic`
+- `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, `GSC_REFRESH_TOKEN` — optional, for CLI volume estimates with `--site-url`
 
 ## License
 
