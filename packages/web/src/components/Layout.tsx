@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { AiKeySettings } from "./AiKeySettings";
+import { GscSettings } from "./GscSettings";
 
 const navItems = [
   { to: "/llmo", label: "LLMO診断" },
@@ -53,6 +54,7 @@ export function Layout() {
           </a>
         </p>
         <AiKeySettings />
+        <GscSettings />
       </footer>
     </div>
   );

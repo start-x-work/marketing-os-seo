@@ -30,9 +30,13 @@ mos-seo audit site https://example.com
 
 All commands support `--format json`; `table` is the default and `markdown` is also available. Use `--quiet` to suppress the optional Marketing-OS footer line. See [docs/USAGE.md](./docs/USAGE.md) for full examples.
 
+**Quickstart:** [docs/QUICKSTART.md](./docs/QUICKSTART.md) — CLI, Web BYOK, GSC 連携手順
+
 ## Web UI
 
 https://marketing-os-seo.pages.dev
+
+AI キーと GSC OAuth は **BYOK**（ブラウザ sessionStorage）。運営側 Secrets 不要。
 
 ## Packages
 
@@ -65,6 +69,15 @@ node packages/cli/dist/index.cjs audit site https://example.com --format json
 - `OPENAI_API_KEY` — optional, for `--model openai`
 - `ANTHROPIC_API_KEY` — optional, for `--model anthropic`
 - `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, `GSC_REFRESH_TOKEN` — optional, for CLI volume estimates with `--site-url`
+
+## OSS vs Commercial
+
+| OSS (this repo) | Commercial [Marketing-OS](https://marketing-os.jp) |
+|---|---|
+| Diagnosis, briefs, keyword mapping | Org-wide workflows, AI CMO |
+| CLI / Web / library (Apache-2.0) | SLA-backed operations & BPO |
+
+Boundary: [manifesto](https://github.com/start-x-work/manifesto/blob/main/README.md#3-marketing-os-との境界線)
 
 ## License
 

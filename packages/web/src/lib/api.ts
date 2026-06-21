@@ -1,4 +1,5 @@
 import { aiKeysForModel, loadAiKeys } from "./ai-settings";
+import { gscRedirectUri, loadGscOAuthConfig, loadGscSession } from "./gsc-settings";
 
 export interface LlmoCheck {
   id: string;
@@ -85,14 +86,44 @@ export async function keywordMap(input: {
   model?: "gemini" | "openai" | "anthropic";
 }): Promise<KeywordMapResult> {
   const model = input.model ?? "gemini";
+  const gscSession = loadGscSession();
   return request("/api/keyword/map", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...input,
       model,
+      gscAccessToken: gscSession?.accessToken,
       ...aiKeysForModel(loadAiKeys(), model),
     }),
+  });
+}
+
+export async function startGscOAuth(): Promise<{ authUrl: string; state: string }> {
+  const config = loadGscOAuthConfig();
+  if (!config) {
+    throw new Error("GSC OAuth credentials are not configured");
+  }
+  return request("/api/auth/start", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      clientId: config.clientId,
+      redirectUri: gscRedirectUri(),
+    }),
+  });
+}
+
+export async function exchangeGscCode(input: {
+  code: string;
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+}): Promise<{ accessToken: string; refreshToken?: string; expiresAt: number }> {
+  return request("/api/auth/exchange", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
   });
 }
 

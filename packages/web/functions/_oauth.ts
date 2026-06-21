@@ -61,6 +61,12 @@ export async function decryptSession(
   return session.expiresAt > Date.now() ? session : undefined;
 }
 
+export interface OAuthClientConfig {
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+}
+
 export async function exchangeCode(
   env: Env,
   code: string,
@@ -68,14 +74,25 @@ export async function exchangeCode(
   if (!env.GSC_CLIENT_ID || !env.GSC_CLIENT_SECRET || !env.GSC_REDIRECT_URI) {
     throw new Error("GSC OAuth is not configured");
   }
+  return exchangeCodeWithConfig({
+    code,
+    clientId: env.GSC_CLIENT_ID,
+    clientSecret: env.GSC_CLIENT_SECRET,
+    redirectUri: env.GSC_REDIRECT_URI,
+  });
+}
+
+export async function exchangeCodeWithConfig(
+  config: OAuthClientConfig & { code: string },
+): Promise<GoogleTokenResponse> {
   const res = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
-      client_id: env.GSC_CLIENT_ID,
-      client_secret: env.GSC_CLIENT_SECRET,
-      redirect_uri: env.GSC_REDIRECT_URI,
-      code,
+      client_id: config.clientId,
+      client_secret: config.clientSecret,
+      redirect_uri: config.redirectUri,
+      code: config.code,
       grant_type: "authorization_code",
     }),
   });

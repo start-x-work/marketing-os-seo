@@ -5,8 +5,9 @@ GEMINI_API_KEY=
 OPENAI_API_KEY=
 ANTHROPIC_API_KEY=
 
-# Optional GSC OAuth (Search Console integration). Without these, keyword map works without GSC rows.
+# Optional GSC OAuth for self-hosted server-side flow (legacy).
+# Web BYOK uses /gsc-callback — register that URI in Google Cloud Console.
 GSC_CLIENT_ID=
 GSC_CLIENT_SECRET=
-GSC_REDIRECT_URI=https://marketing-os-seo.pages.dev/api/auth/callback
+GSC_REDIRECT_URI=https://marketing-os-seo.pages.dev/gsc-callback
 GSC_COOKIE_SECRET=

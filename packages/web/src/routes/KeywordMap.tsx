@@ -25,7 +25,7 @@ export function KeywordMap() {
       <FeatureHeader
         eyebrow="Keyword Map"
         title="キーワードを intent とクラスタで整理"
-        description="seed keyword と関連語から intent 分類・クラスタリングを行います。Google OAuth 設定後は GSC 連携の入口としても使えます。"
+        description="seed keyword と関連語から intent 分類・クラスタリングを行います。フッターの GSC 設定で OAuth を保存し、サイト URL を入力すると GSC クエリを取得できます。"
       />
       <Card className="mb-8">
         <form
@@ -63,12 +63,6 @@ export function KeywordMap() {
               {map.isPending ? "整理中..." : "マップ作成"}
             </Button>
           </div>
-          <a
-            href="/api/auth/google"
-            className="inline-flex text-sm font-medium text-indigo hover:underline"
-          >
-            Google Search Console と連携する
-          </a>
         </form>
       </Card>
       {map.isPending && (

@@ -21,6 +21,7 @@ interface KeywordRequest {
   geminiApiKey?: string;
   openaiApiKey?: string;
   anthropicApiKey?: string;
+  gscAccessToken?: string;
 }
 
 interface GscRow {
@@ -44,7 +45,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       { lang: body.lang ?? "ja" },
     );
     const gscRows = body.siteUrl
-      ? await fetchGscRowsIfConnected(request, env, validateUrl(body.siteUrl))
+      ? await fetchGscRows(
+          request,
+          env,
+          validateUrl(body.siteUrl),
+          body.gscAccessToken?.trim(),
+        )
       : undefined;
 
     if (body.volume) {
@@ -57,13 +63,16 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 };
 
-async function fetchGscRowsIfConnected(
+async function fetchGscRows(
   request: Request,
   env: Env,
   siteUrl: string,
+  gscAccessToken?: string,
 ): Promise<GscRow[] | undefined> {
-  const session = await decryptSession(env, getCookie(request, sessionCookie));
-  if (!session) {
+  const accessToken =
+    gscAccessToken ??
+    (await decryptSession(env, getCookie(request, sessionCookie)))?.accessToken;
+  if (!accessToken) {
     return undefined;
   }
 
@@ -71,7 +80,7 @@ async function fetchGscRowsIfConnected(
   const res = await fetch(endpoint, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${session.accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
