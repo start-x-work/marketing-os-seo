@@ -6,6 +6,7 @@ import {
   validateNonEmptyString,
   validateUrl,
 } from "@start-x-work/marketing-os-seo-core";
+import { resolveApiKey } from "../../_ai-key";
 import { decryptSession, sessionCookie } from "../../_oauth";
 import { type Env, getCookie, jsonError, readJson } from "../../_shared";
 
@@ -16,6 +17,10 @@ interface KeywordRequest {
   volume?: boolean;
   lang?: string;
   model?: "gemini" | "openai" | "anthropic";
+  apiKey?: string;
+  geminiApiKey?: string;
+  openaiApiKey?: string;
+  anthropicApiKey?: string;
 }
 
 interface GscRow {
@@ -31,12 +36,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const seed = validateNonEmptyString(body.seed ?? "", "seed");
     const related = Array.isArray(body.related) ? body.related : [];
     const model = body.model ?? "gemini";
-    const apiKey =
-      model === "openai"
-        ? env.OPENAI_API_KEY
-        : model === "anthropic"
-          ? env.ANTHROPIC_API_KEY
-          : env.GEMINI_API_KEY;
+    const apiKey = resolveApiKey(body, env, model);
     const result = await mapKeywords(
       createProvider(model, apiKey),
       seed,

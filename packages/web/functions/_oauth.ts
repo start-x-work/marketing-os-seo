@@ -65,6 +65,9 @@ export async function exchangeCode(
   env: Env,
   code: string,
 ): Promise<GoogleTokenResponse> {
+  if (!env.GSC_CLIENT_ID || !env.GSC_CLIENT_SECRET || !env.GSC_REDIRECT_URI) {
+    throw new Error("GSC OAuth is not configured");
+  }
   const res = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },

@@ -3,6 +3,11 @@ import { createCookie, type Env, jsonError } from "../../_shared";
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   try {
+    if (!env.GSC_CLIENT_ID || !env.GSC_REDIRECT_URI) {
+      throw new Error(
+        "GSC OAuth is not configured. Set GSC_CLIENT_ID and GSC_REDIRECT_URI (optional; keyword map works without GSC).",
+      );
+    }
     const state = createState();
     const params = new URLSearchParams({
       client_id: env.GSC_CLIENT_ID,

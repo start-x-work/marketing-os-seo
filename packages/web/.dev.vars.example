@@ -1,5 +1,12 @@
+# Optional server-side fallbacks for self-hosters.
+# Web UI uses BYOK: users enter keys in browser Settings (sessionStorage).
+# Leave blank on Cloudflare Pages to avoid operator AI cost.
 GEMINI_API_KEY=
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+
+# Optional GSC OAuth (Search Console integration). Without these, keyword map works without GSC rows.
 GSC_CLIENT_ID=
 GSC_CLIENT_SECRET=
-GSC_REDIRECT_URI=http://localhost:8788/api/auth/callback
+GSC_REDIRECT_URI=https://marketing-os-seo.pages.dev/api/auth/callback
 GSC_COOKIE_SECRET=

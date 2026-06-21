@@ -1,3 +1,5 @@
+import { aiKeysForModel, loadAiKeys } from "./ai-settings";
+
 export interface LlmoCheck {
   id: string;
   label: string;
@@ -62,10 +64,15 @@ export async function auditSite(url: string): Promise<SiteAuditResult> {
 }
 
 export async function contentBrief(topic: string): Promise<ContentBriefResult> {
+  const model = "gemini" as const;
   return request("/api/content/brief", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ topic }),
+    body: JSON.stringify({
+      topic,
+      model,
+      ...aiKeysForModel(loadAiKeys(), model),
+    }),
   });
 }
 
@@ -75,11 +82,17 @@ export async function keywordMap(input: {
   siteUrl?: string;
   volume?: boolean;
   lang?: string;
+  model?: "gemini" | "openai" | "anthropic";
 }): Promise<KeywordMapResult> {
+  const model = input.model ?? "gemini";
   return request("/api/keyword/map", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: JSON.stringify({
+      ...input,
+      model,
+      ...aiKeysForModel(loadAiKeys(), model),
+    }),
   });
 }
 

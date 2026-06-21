@@ -1,12 +1,12 @@
 import { CliError } from "@start-x-work/marketing-os-seo-core";
 
 export interface Env {
-  GEMINI_API_KEY: string;
+  GEMINI_API_KEY?: string;
   OPENAI_API_KEY?: string;
   ANTHROPIC_API_KEY?: string;
-  GSC_CLIENT_ID: string;
-  GSC_CLIENT_SECRET: string;
-  GSC_REDIRECT_URI: string;
+  GSC_CLIENT_ID?: string;
+  GSC_CLIENT_SECRET?: string;
+  GSC_REDIRECT_URI?: string;
   GSC_COOKIE_SECRET?: string;
 }
 

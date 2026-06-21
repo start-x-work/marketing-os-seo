@@ -3,4 +3,4 @@ compatibility_date = "2026-05-25"
 pages_build_output_dir = "dist"
 
 [vars]
-GSC_REDIRECT_URI = "http://localhost:8788/api/auth/callback"
+GSC_REDIRECT_URI = "https://marketing-os-seo.pages.dev/api/auth/callback"
