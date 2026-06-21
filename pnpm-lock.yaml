@@ -40,8 +40,8 @@ importers:
   packages/core:
     dependencies:
       '@start-x-work/mos-kit':
-        specifier: file:../../../mos-kit
-        version: file:../mos-kit
+        specifier: ^0.1.0
+        version: 0.1.0
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -982,8 +982,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@start-x-work/mos-kit@file:../mos-kit':
-    resolution: {directory: ../mos-kit, type: directory}
+  '@start-x-work/mos-kit@0.1.0':
+    resolution: {integrity: sha512-nMJDsh16ntBIFy2zvinqYlkAdktIXR/8WBfmUx22k5Cq4y0BhX2K3dY1V7r2B4neNYnX/Oi/BdoieRa9x9Gt0g==}
 
   '@tanstack/query-core@5.101.0':
     resolution: {integrity: sha512-cQetA74EB+seWySv1TTKr828TnP0u39m6LykwDXIo84SNortpDkp30TMEjkqtYCNP9c40uT/iwl6MLiufEt0Ow==}
@@ -2581,7 +2581,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@start-x-work/mos-kit@file:../mos-kit':
+  '@start-x-work/mos-kit@0.1.0':
     dependencies:
       '@google/genai': 2.6.0
       cheerio: 1.2.0

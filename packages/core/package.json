@@ -20,7 +20,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@start-x-work/mos-kit": "file:../../../mos-kit",
+    "@start-x-work/mos-kit": "^0.1.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {

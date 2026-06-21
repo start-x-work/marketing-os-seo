@@ -1,6 +1,6 @@
 {
   "name": "@start-x-work/mos-seo",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "type": "module",
   "license": "Apache-2.0",
@@ -12,6 +12,10 @@
   },
   "bin": {
     "mos-seo": "./dist/index.cjs"
+  },
+  "exports": {
+    ".": "./dist/index.cjs",
+    "./command": "./dist/command.cjs"
   },
   "files": [
     "dist"
