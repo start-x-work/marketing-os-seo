@@ -2,12 +2,12 @@
 import { CliError } from "@start-x-work/marketing-os-seo-core";
 import { defineCommand, runMain } from "citty";
 import pc from "picocolors";
-import seoCommand, { subCommands } from "./command";
+import { subCommands } from "./command";
 
 const main = defineCommand({
   meta: {
     name: "mos-seo",
-    description: seoCommand.meta?.description ?? "Marketing-OS SEO toolkit",
+    description: "Marketing-OS SEO toolkit",
   },
   subCommands,
 });
