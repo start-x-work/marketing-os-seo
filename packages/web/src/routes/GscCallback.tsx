@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { Card } from "../components/ui/Card";
 import { exchangeGscCode } from "../lib/api";
 import {
   consumeOAuthState,
@@ -7,7 +8,6 @@ import {
   loadGscOAuthConfig,
   saveGscSession,
 } from "../lib/gsc-settings";
-import { Card } from "../components/ui/Card";
 
 export function GscCallback() {
   const [params] = useSearchParams();
@@ -25,7 +25,9 @@ export function GscCallback() {
       return;
     }
     if (!config) {
-      setError("GSC OAuth credentials not found. Configure them in Settings first.");
+      setError(
+        "GSC OAuth credentials not found. Configure them in Settings first.",
+      );
       return;
     }
 
@@ -49,7 +51,9 @@ export function GscCallback() {
       {error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <p className="text-slate-muted">Google Search Console と連携しています…</p>
+        <p className="text-slate-muted">
+          Google Search Console と連携しています…
+        </p>
       )}
     </Card>
   );

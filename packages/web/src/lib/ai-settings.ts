@@ -25,7 +25,12 @@ export function saveAiKeys(keys: AiKeys): void {
 export function aiKeysForModel(
   keys: AiKeys,
   model: "gemini" | "openai" | "anthropic" = "gemini",
-): { apiKey?: string; geminiApiKey?: string; openaiApiKey?: string; anthropicApiKey?: string } {
+): {
+  apiKey?: string;
+  geminiApiKey?: string;
+  openaiApiKey?: string;
+  anthropicApiKey?: string;
+} {
   return {
     geminiApiKey: keys.gemini,
     openaiApiKey: keys.openai,

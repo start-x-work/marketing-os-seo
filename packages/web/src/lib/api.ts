@@ -1,5 +1,9 @@
 import { aiKeysForModel, loadAiKeys } from "./ai-settings";
-import { gscRedirectUri, loadGscOAuthConfig, loadGscSession } from "./gsc-settings";
+import {
+  gscRedirectUri,
+  loadGscOAuthConfig,
+  loadGscSession,
+} from "./gsc-settings";
 
 export interface LlmoCheck {
   id: string;
@@ -99,7 +103,10 @@ export async function keywordMap(input: {
   });
 }
 
-export async function startGscOAuth(): Promise<{ authUrl: string; state: string }> {
+export async function startGscOAuth(): Promise<{
+  authUrl: string;
+  state: string;
+}> {
   const config = loadGscOAuthConfig();
   if (!config) {
     throw new Error("GSC OAuth credentials are not configured");

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loadAiKeys, saveAiKeys, type AiKeys } from "../lib/ai-settings";
+import { type AiKeys, loadAiKeys, saveAiKeys } from "../lib/ai-settings";
 import { Button } from "./ui/Button";
 import { Card } from "./ui/Card";
 import { Input } from "./ui/Input";
@@ -73,7 +73,9 @@ export function AiKeySettings() {
           </div>
           <div className="flex items-center gap-3">
             <Button type="submit">保存</Button>
-            {saved && <span className="text-sm text-success">保存しました</span>}
+            {saved && (
+              <span className="text-sm text-success">保存しました</span>
+            )}
           </div>
         </form>
       )}

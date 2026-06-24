@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { startGscOAuth } from "../lib/api";
 import {
   clearGscSession,
+  type GscOAuthConfig,
   loadGscOAuthConfig,
   loadGscSession,
   saveGscOAuthConfig,
   saveOAuthState,
-  type GscOAuthConfig,
 } from "../lib/gsc-settings";
-import { startGscOAuth } from "../lib/api";
 import { Button } from "./ui/Button";
 import { Card } from "./ui/Card";
 import { Input } from "./ui/Input";
@@ -29,7 +29,8 @@ export function GscSettings() {
           </h2>
           <p className="mt-1 text-sm text-slate-muted">
             自分の Google Cloud OAuth アプリの Client ID / Secret
-            をブラウザに保存します。運営側の Secrets は不要です。リダイレクト URI:{" "}
+            をブラウザに保存します。運営側の Secrets は不要です。リダイレクト
+            URI:{" "}
             <code className="text-xs">{`${typeof window !== "undefined" ? window.location.origin : ""}/gsc-callback`}</code>
           </p>
         </div>
@@ -102,7 +103,9 @@ export function GscSettings() {
             )}
           </div>
           {connected && (
-            <p className="text-sm text-success">GSC アクセストークンが保存されています。</p>
+            <p className="text-sm text-success">
+              GSC アクセストークンが保存されています。
+            </p>
           )}
         </div>
       )}

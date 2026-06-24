@@ -16,7 +16,9 @@ export const onRequestPost: PagesFunction = async ({ request }) => {
     const clientSecret = body.clientSecret?.trim();
     const redirectUri = body.redirectUri?.trim();
     if (!code || !clientId || !clientSecret || !redirectUri) {
-      throw new Error("code, clientId, clientSecret, and redirectUri are required");
+      throw new Error(
+        "code, clientId, clientSecret, and redirectUri are required",
+      );
     }
 
     const token = await exchangeCodeWithConfig({
