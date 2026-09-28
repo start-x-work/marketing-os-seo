@@ -15,6 +15,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const PURE_MODULES = [
   "content-signal.ts",
   "data/ai-crawlers.ts",
+  "geo/audit.ts",
   "llmo/scoring.ts",
   "llmo/llms-txt-draft.ts",
   "llmo/checks/structured-data.ts",
