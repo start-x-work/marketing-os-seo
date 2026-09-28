@@ -1,12 +1,17 @@
+import { fetchFollowingPublicRedirects } from "../safe-fetch";
 import type { SiteCheck } from "./audit";
 
 async function probe(
   url: string,
 ): Promise<{ ok: boolean; status?: number; detail: string }> {
   try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "mos-seo-bot/0.1 (+https://marketing-os.jp)" },
-    });
+    const res = await fetchFollowingPublicRedirects(
+      url,
+      {
+        headers: { "User-Agent": "mos-seo-bot/0.1 (+https://marketing-os.jp)" },
+      },
+      { allowHttp: true },
+    );
     return {
       ok: res.ok,
       status: res.status,

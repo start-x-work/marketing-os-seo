@@ -1,9 +1,14 @@
+import { fetchFollowingPublicRedirects } from "../../safe-fetch";
 import type { LLMOCheck } from "../audit";
 
 export async function checkLlmsTxt(url: string): Promise<LLMOCheck> {
   const llmsUrl = `${new URL(url).origin}/llms.txt`;
   try {
-    const res = await fetch(llmsUrl);
+    const res = await fetchFollowingPublicRedirects(
+      llmsUrl,
+      {},
+      { allowHttp: true },
+    );
     const text = res.ok ? await res.text() : "";
     return {
       id: "llmo.llms-txt",
