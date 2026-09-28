@@ -59,6 +59,13 @@ export {
   type LLMOCheck,
 } from "./llmo/audit";
 export {
+  buildLlmsTxtDraft,
+  LLMS_TXT_GUIDANCE_NOTE,
+  type LlmsTxtDraftInput,
+  type LlmsTxtDraftLink,
+  type LlmsTxtDraftSection,
+} from "./llmo/llms-txt-draft";
+export {
   assertPublicHttpsUrl,
   assertPublicUrl,
   type FollowRedirectsOptions,

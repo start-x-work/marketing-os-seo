@@ -48,6 +48,22 @@ mos-seo audit site https://example.com
 
 All commands support `--format json`; `table` is the default and `markdown` is also available. Use `--quiet` to suppress the optional Marketing-OS footer line. See [docs/USAGE.md](./docs/USAGE.md) for full examples.
 
+### llms.txt draft (advisory)
+
+`audit site` / `audit llmo` accept `--llms-txt`, which fetches the page and
+prints a draft [`llms.txt`](https://llmstxt.org/) built from the page's title,
+description, and same-origin links:
+
+```bash
+mos-seo audit site https://example.com --llms-txt
+```
+
+The draft is **advisory guidance for a human to review and edit** before
+publishing at `/llms.txt`. It documents and links to content; it does **not**
+command, control, or guarantee any AI/LLM behavior, and no AI system is obliged
+to read or follow it. The library exposes the same generator as the pure
+function `buildLlmsTxtDraft(input)` in `@start-x-work/marketing-os-seo-core`.
+
 **Quickstart:** [docs/QUICKSTART.md](./docs/QUICKSTART.md) — CLI, Web BYOK, GSC 連携手順
 
 ## Web UI

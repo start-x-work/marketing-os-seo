@@ -16,6 +16,7 @@ const PURE_MODULES = [
   "content-signal.ts",
   "data/ai-crawlers.ts",
   "llmo/scoring.ts",
+  "llmo/llms-txt-draft.ts",
   "llmo/checks/structured-data.ts",
   "llmo/checks/headings.ts",
   "llmo/checks/citability.ts",

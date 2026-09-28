@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CLI --llms-txt output > prints the advisory llms.txt draft 1`] = `
+"> [!NOTE]
+> This is an advisory \`llms.txt\` DRAFT generated for human review — not a
+> published file. \`llms.txt\` documents and links to content for LLMs; it
+> does NOT command, control, or guarantee any AI/LLM behavior, and no AI
+> system is obligated to read or follow it. Review and edit before
+> publishing at /llms.txt. See https://llmstxt.org/.
+
+# Example Site
+
+> A short, human-readable summary of the site.
+
+## Key pages
+- [Home](https://example.com/)
+- [Documentation](https://example.com/docs)
+- [Pricing](https://example.com/pricing)
+"
+`;
