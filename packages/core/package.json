@@ -1,23 +1,32 @@
 {
   "name": "@start-x-work/marketing-os-seo-core",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": false,
   "type": "module",
   "license": "Apache-2.0",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./geo": {
+      "types": "./dist/geo/index.d.ts",
+      "import": "./dist/geo/index.js",
+      "require": "./dist/geo/index.cjs"
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup src/index.ts src/geo/index.ts --format esm,cjs --dts --clean",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@start-x-work/mos-kit": "^0.1.0",
@@ -25,5 +34,8 @@
   },
   "devDependencies": {
     "cheerio": "^1.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

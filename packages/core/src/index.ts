@@ -24,6 +24,20 @@ export {
   generateBrief,
 } from "./content/brief";
 export {
+  type ContentSignal,
+  type ContentSignalPurpose,
+  extractContentSignalFromRobots,
+  parseContentSignal,
+} from "./content-signal";
+export {
+  AI_CRAWLER_TOKENS,
+  AI_CRAWLERS,
+  type AiCrawler,
+  type AiCrawlerCategory,
+  SEARCH_CITATION_CRAWLERS,
+  TRAINING_CRAWLERS,
+} from "./data/ai-crawlers";
+export {
   fetchGSCQueries,
   type GSCOptions,
   type GSCQueryRow,
@@ -44,6 +58,21 @@ export {
   type LLMOAuditResult,
   type LLMOCheck,
 } from "./llmo/audit";
+export {
+  buildLlmsTxtDraft,
+  LLMS_TXT_GUIDANCE_NOTE,
+  type LlmsTxtDraftInput,
+  type LlmsTxtDraftLink,
+  type LlmsTxtDraftSection,
+} from "./llmo/llms-txt-draft";
+export {
+  assertPublicHttpsUrl,
+  assertPublicUrl,
+  type FollowRedirectsOptions,
+  fetchFollowingPublicRedirects,
+  isPrivateOrLoopbackHost,
+  type PublicUrlOptions,
+} from "./safe-fetch";
 export {
   auditSite,
   type SiteAuditResult,

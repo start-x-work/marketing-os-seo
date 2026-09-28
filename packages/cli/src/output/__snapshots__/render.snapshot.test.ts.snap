@@ -1,0 +1,92 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CLI render output snapshots > --format json 1`] = `
+"{
+  "url": "https://example.com",
+  "totalScore": 72,
+  "checks": [
+    {
+      "id": "llmo.structured-data",
+      "label": "AI-readable structured data",
+      "score": 100,
+      "weight": 3,
+      "detail": "AI-friendly types: Article"
+    },
+    {
+      "id": "llmo.ai-bots",
+      "label": "AI bot crawl policy",
+      "score": 100,
+      "weight": 2,
+      "detail": "No explicit block for the tracked AI crawlers."
+    }
+  ],
+  "recommendations": [
+    "Question-oriented heading structure: add more H2 questions"
+  ]
+}"
+`;
+
+exports[`CLI render output snapshots > --format markdown 1`] = `
+"### url
+
+https://example.com
+
+### totalScore
+
+72
+
+### checks
+
+- ### id
+
+llmo.structured-data
+
+### label
+
+AI-readable structured data
+
+### score
+
+100
+
+### weight
+
+3
+
+### detail
+
+AI-friendly types: Article
+- ### id
+
+llmo.ai-bots
+
+### label
+
+AI bot crawl policy
+
+### score
+
+100
+
+### weight
+
+2
+
+### detail
+
+No explicit block for the tracked AI crawlers.
+
+### recommendations
+
+- Question-oriented heading structure: add more H2 questions"
+`;
+
+exports[`CLI render output snapshots > human-readable table summary 1`] = `
+"url: https://example.com
+totalScore: 72
+checks
+  - {"id":"llmo.structured-data","label":"AI-readable structured data","score":100,"weight":3,"detail":"AI-friendly types: Article"}
+  - {"id":"llmo.ai-bots","label":"AI bot crawl policy","score":100,"weight":2,"detail":"No explicit block for the tracked AI crawlers."}
+recommendations
+  - Question-oriented heading structure: add more H2 questions"
+`;
