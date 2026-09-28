@@ -13,6 +13,21 @@ preserved.
 
 ### Added
 
+- **GEO / LLMO audit module** (`@start-x-work/marketing-os-seo-core`, new
+  `./geo` subpath — `@start-x-work/marketing-os-seo-core/geo`): the canonical
+  home for the heuristic GEO audit that was previously duplicated in
+  Marketing-OS `lib/geo-seo-audit.ts`. Pure, network-independent exports
+  `analyzePageHtml`, `analyzeRobotsTxtForBots`, `analyzeInfrastructureFromHeaders`,
+  `computeGeoAuditFromContent`, `buildGeoAuditHttpErrorPayload`,
+  `buildGeoAuditFetchErrorPayload`, `geoAuditHeadersToRecord`,
+  `buildLlmsTxtDraft` (Japanese variant), `GEO_AI_CRAWLER_BOTS`, and the
+  `GeoPageSignals` / `GeoRobotsBotStatus` / `GeoInfrastructureSignals` /
+  `GeoSeoAuditResult` / `GeoAuditFetchErrorPayload` types. Exposed on a dedicated
+  `./geo` subpath so it does not collide with the top-level `buildLlmsTxtDraft`
+  (English) / `assertPublicHttpsUrl` (global-fetch) exports, which keep different
+  signatures. Covered by golden tests mirroring Marketing-OS's suite and added to
+  the pure-core purity guard. Marketing-OS re-exports this subpath to retire its
+  duplicate copy (keeping only its Worker-specific SSRF fetch layer local).
 - **SSRF-hardened fetch layer** (`@start-x-work/marketing-os-seo-core`): new
   exports `assertPublicUrl`, `assertPublicHttpsUrl`,
   `fetchFollowingPublicRedirects`, `isPrivateOrLoopbackHost`, and the
