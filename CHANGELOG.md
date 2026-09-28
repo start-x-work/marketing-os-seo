@@ -7,9 +7,22 @@ the library).
 
 ## [Unreleased]
 
-Additive, backward-compatible changes. No public API was removed or changed, so
-no version bump is required to ship these; published `1.1.x` behavior is
-preserved.
+## [1.2.0] - 2026-09-28
+
+`@start-x-work/mos-seo` 1.1.1 → **1.2.0**; `@start-x-work/marketing-os-seo-core`
+**1.2.0** (first npm publish of the library).
+
+Additive, backward-compatible changes: no public API was removed or changed, and
+published `1.1.x` behavior is preserved. The minor version is bumped because new
+features were added (SemVer).
+
+### Release
+
+- `@start-x-work/marketing-os-seo-core` now ships only `dist/` (`"files"`), is
+  published with public access (`publishConfig`), and builds itself before
+  publishing (`prepublishOnly`) so a stale or missing `dist/` cannot be released.
+- `@start-x-work/mos-seo` builds the whole workspace before publishing
+  (`prepublishOnly`), because it bundles the core library.
 
 ### Added
 
