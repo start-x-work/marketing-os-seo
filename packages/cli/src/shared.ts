@@ -13,6 +13,17 @@ export const quietArg = {
   description: "Suppress the commercial footer line",
 };
 
+export const llmsTxtArg = {
+  type: "boolean" as const,
+  default: false,
+  description:
+    "Print an advisory llms.txt draft (guidance for review; not a command)",
+};
+
+export function parseLlmsTxt(value: unknown): boolean {
+  return value === true || value === "true";
+}
+
 export const modelArg = {
   type: "string" as const,
   default: "gemini",

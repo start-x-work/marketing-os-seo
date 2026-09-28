@@ -26,6 +26,20 @@ preserved.
 - **Content-Signal parsing**: `parseContentSignal` and
   `extractContentSignalFromRobots` understand `search` / `ai-input` / `ai-train`
   directives in `robots.txt`.
+- **`llms.txt` draft generator** (`@start-x-work/marketing-os-seo-core`): new
+  pure function `buildLlmsTxtDraft(input)` plus the `LlmsTxtDraftInput`,
+  `LlmsTxtDraftSection`, `LlmsTxtDraftLink` types and the
+  `LLMS_TXT_GUIDANCE_NOTE` constant. It composes an advisory
+  [`llms.txt`](https://llmstxt.org/) draft (title / summary / sections with key
+  URLs) from already-collected signals. The draft always opens with a guidance
+  note making explicit that it is advisory and does NOT command AI behavior. The
+  function does no network or filesystem I/O and is covered by the pure-core
+  purity test.
+- **CLI `--llms-txt` output** (`@start-x-work/mos-seo`): `audit site` and
+  `audit llmo` accept `--llms-txt`, which fetches the page and prints the
+  advisory `llms.txt` draft (from its title, description, and same-origin
+  links). Existing `--format json` / `table` / `markdown` output and exit codes
+  are unchanged.
 
 ### Changed
 
@@ -47,3 +61,7 @@ preserved.
   modules and never call `fetch()`.
 - CLI output snapshot tests for the human/table, `--format json`, and
   `--format markdown` renderings.
+- Unit tests for `buildLlmsTxtDraft` (advisory guidance-note prefix, title /
+  summary / section rendering, empty-input handling, determinism) and a CLI
+  snapshot test for the `--llms-txt` output. `llms-txt-draft.ts` is added to the
+  pure-core purity guard.
